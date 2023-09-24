@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1275e394-f427-45a1-aa8b-2db7311fc382" name="Changes" comment="Stack realisation and start of input parsing">
+    <list default="true" id="1275e394-f427-45a1-aa8b-2db7311fc382" name="Changes" comment="Added function os constructor's parser with expanding into linear expressions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/lab1.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/lab1.kt" afterDir="false" />
     </list>
@@ -83,7 +83,7 @@
       <workItem from="1695448414517" duration="32000" />
       <workItem from="1695450146170" duration="3035000" />
       <workItem from="1695493912116" duration="8404000" />
-      <workItem from="1695545003725" duration="4274000" />
+      <workItem from="1695545003725" duration="20894000" />
     </task>
     <task id="LOCAL-00001" summary="Stack realisation and start of input parsing">
       <created>1695285846939</created>
@@ -92,7 +92,14 @@
       <option name="project" value="LOCAL" />
       <updated>1695285846939</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added function os constructor's parser with expanding into linear expressions">
+      <created>1695551634053</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1695551634053</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -123,6 +130,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Stack realisation and start of input parsing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Stack realisation and start of input parsing" />
+    <MESSAGE value="Added function os constructor's parser with expanding into linear expressions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added function os constructor's parser with expanding into linear expressions" />
   </component>
 </project>

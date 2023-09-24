@@ -1,4 +1,4 @@
-import java.util.stream.IntStream.range
+import java.io.File
 
 class Stack{
     val elements: MutableList<Any> = mutableListOf()
@@ -19,7 +19,7 @@ class Stack{
     override fun toString(): String = elements.toString()
 }
 
-fun parser(part: String, variables: List<String>) {
+fun parser(part: String, variables: List<String>): List<String>? {
     val constructorLevel = mutableMapOf<String, Int>() //Словарь размерности конструктора
     val constructorTerms = mutableMapOf<String, String>() //Словарь для термов внутри конструктора
     val constructorLinear = mutableMapOf<String, List<String>>() //Словарь для линейных разложений
@@ -154,13 +154,18 @@ fun parser(part: String, variables: List<String>) {
         }
     }
 
-    println(constructorLinear[part[0].toString()])
+    return constructorLinear[part[0].toString()]
 }
 
 fun main() {
     val input0 = "variables = x, y"
     val input1 = "f(g(x, y)) -> g(h(y), x)"
     val input2 = "h(f(x)) -> f(x)"
+
+    /* 2. Сделать приведение выражений (если равная переменная типа z*x + t*x = (z+t)x
+    * 3. Составление выражений в smt2
+    * 4. Сделать ввод из консоли
+    * 5. Запуск и работа z3*/
 
     var parts = input0.split(" = ")[1].split(", ")
     val variables = parts.toMutableList()
@@ -173,6 +178,159 @@ fun main() {
     val leftPart_2 = parts[0].trim()
     val rightPart_2 = parts[1].trim()
 
-    parser(rightPart_1, variables)
+    val leftRes_1 = parser(leftPart_1, variables)
+    val rightRes_1 = parser(rightPart_1, variables)
+    val leftRes_2 = parser(leftPart_2, variables)
+    val rightRes_2 = parser(rightPart_2, variables)
 
+    val multipliers = mutableMapOf<String, String>() // Множетели у переменных и свободного члена. Ключ - переменная или "free", если свободная
+    val multipliersCount = mutableMapOf<String, Int>() // Количество множетелей у переменной
+    val termsWithVar = mutableMapOf<Char, List<String>>() // Мапа термов при переменных у конструкторов, после разложения в линейные
+    val termsWithoutVar = mutableMapOf<Char, List<String>>() // Мапа термов при свободных членах у конструкторов, после разложения в линейные
+
+    if (leftRes_1 != null) {
+        for (i in 0..(leftRes_1.size - 1)) {
+
+            if (leftRes_1[i].takeLast(1) in variables) { // если слагаемое содержит на конце переменную
+
+                var temp = ""
+                var temp_terms = ""
+
+                for (t in 0 .. (leftRes_1[i].length - 2)) {
+
+                    if (leftRes_1[i][t] != '*') { // до знака умножения идет один множитель
+                        temp += leftRes_1[i][t]
+                        temp_terms += leftRes_1[i][t]
+                    } else {
+
+                        if ((termsWithVar[temp_terms[0]] != null) && (termsWithVar[temp_terms[0]]?.contains(temp_terms) == false)) { // заносим в мапу термов, если его еще нет внутри
+                            termsWithVar[temp_terms[0]] = termsWithVar[temp_terms[0]]!! + temp_terms
+                        } else if (termsWithVar[temp_terms[0]] == null) {
+                            termsWithVar[temp_terms[0]] = listOf(temp_terms)
+                        }
+
+                        temp_terms = ""
+
+                        if (multipliersCount[leftRes_1[i].takeLast(1)] != null) {
+                            multipliersCount[leftRes_1[i].takeLast(1)] = multipliersCount[leftRes_1[i].takeLast(1)]!! + 1
+                        } else {
+                            multipliersCount[leftRes_1[i].takeLast(1)] = 1
+                        }
+
+                        if (!(leftRes_1[i][t + 1].toString() in variables)) {
+                            temp += " " // пробел для записи другого множителя
+                        } else {
+
+                            if ((multipliers[leftRes_1[i].takeLast(1)] == null) && (multipliersCount[leftRes_1[i].takeLast(1)]!! > 1)) {
+                                multipliers[leftRes_1[i].takeLast(1)] = "(* " + temp + ")"
+                                multipliersCount[leftRes_1[i].takeLast(1)] = 0
+                            } else if ((multipliers[leftRes_1[i].takeLast(1)] == null) && (multipliersCount[leftRes_1[i].takeLast(1)]!! == 1)) {
+                                multipliers[leftRes_1[i].takeLast(1)] = temp
+                            } else if ((multipliers[leftRes_1[i].takeLast(1)] != null) && (multipliersCount[leftRes_1[i].takeLast(1)]!! > 1)){
+                                multipliers[leftRes_1[i].takeLast(1)] = multipliers[leftRes_1[i].takeLast(1)] + " (* " + temp + ")"
+                                multipliersCount[leftRes_1[i].takeLast(1)] = 0
+                            } else if ((multipliers[leftRes_1[i].takeLast(1)] != null) && (multipliersCount[leftRes_1[i].takeLast(1)]!! == 1)){
+                                multipliers[leftRes_1[i].takeLast(1)] = multipliers[leftRes_1[i].takeLast(1)] + " " + temp
+                            }
+
+                            temp = ""
+                        }
+                    }
+                }
+            } else { // если слагаемое НЕ содержит на конце переменную аkа свободный член
+
+                var temp = ""
+                var temp_terms = ""
+                var statusOfMultiply = true
+
+                for (t in 0 .. (leftRes_1[i].length - 1)) {
+
+                    if ((leftRes_1[i][t] != '*') && (!(leftRes_1[i][t].toString() == leftRes_1[i].takeLast(1)))) { // до знака умножения идет один множитель
+                        temp += leftRes_1[i][t]
+                        temp_terms += leftRes_1[i][t]
+                    } else if (leftRes_1[i][t].toString() == leftRes_1[i].takeLast(1)) {
+
+                        temp += leftRes_1[i][t]
+                        temp_terms += leftRes_1[i][t]
+
+                        if (multipliersCount["free"] != null) {
+                            multipliersCount["free"] = multipliersCount["free"]!! + 1
+                        } else {
+                            multipliersCount["free"] = 1
+                        }
+
+                        if (statusOfMultiply == true) {
+                            if ((termsWithoutVar[temp_terms[0]] != null) && (termsWithVar[temp_terms[0]]?.contains(temp_terms) == false)) { // заносим в мапу термов, если его еще нет внутри
+                                termsWithoutVar[temp_terms[0]] = termsWithoutVar[temp_terms[0]]!! + temp_terms
+                            } else if (termsWithoutVar[temp_terms[0]] == null) {
+                                termsWithoutVar[temp_terms[0]] = listOf(temp_terms)
+                            }
+                        } else {
+                            if ((termsWithVar[temp_terms[0]] != null) && (termsWithVar[temp_terms[0]]?.contains(temp_terms) == false)) { // заносим в мапу термов, если его еще нет внутри
+                                termsWithVar[temp_terms[0]] = termsWithVar[temp_terms[0]]!! + temp_terms
+                            } else if (termsWithVar[temp_terms[0]] == null) {
+                                termsWithVar[temp_terms[0]] = listOf(temp_terms)
+                            }
+                        }
+
+                        if ((multipliers["free"] == null) && (multipliersCount["free"]!! > 1)) {
+                            multipliers["free"] = "(* " + temp + ")"
+                            multipliersCount["free"] = 0
+                        } else if ((multipliers["free"] == null) && (multipliersCount["free"]!! == 1)) {
+                            multipliers["free"] = temp
+                        } else if ((multipliers["free"] != null) && (multipliersCount["free"]!! > 1)){
+                            multipliers["free"] = multipliers["free"] + " (* " + temp + ")"
+                            multipliersCount["free"] = 0
+                        } else if ((multipliers["free"] != null) && (multipliersCount["free"]!! == 1)){
+                            multipliers["free"] = multipliers["free"] + " " + temp
+                        }
+
+                        temp = ""
+
+                    } else { // попалось умножение
+
+                        statusOfMultiply = false
+
+                        if ((termsWithVar[temp_terms[0]] != null) && (termsWithVar[temp_terms[0]]?.contains(temp_terms) == false)) {
+                            // заносим в мапу термов, если его еще нет внутри
+                            termsWithVar[temp_terms[0]] = termsWithVar[temp_terms[0]]!! + temp_terms
+                        } else if (termsWithVar[temp_terms[0]] == null) {
+                            termsWithVar[temp_terms[0]] = listOf(temp_terms)
+                        }
+
+                        temp_terms = ""
+
+                        if (multipliersCount["free"] != null) {
+                            multipliersCount["free"] = multipliersCount["free"]!! + 1
+                        } else {
+                            multipliersCount["free"] = 1
+                        }
+
+                        temp += " " // пробел для записи другого множителя
+                    }
+                }
+
+            }
+        }
+    }
+
+    println(leftRes_1)
+
+    println(termsWithVar)
+    println(termsWithoutVar)
+    println(multipliers)
+
+    /*val fileName = "solver.smt2"
+var file = File(fileName)
+
+val isNewFileCreated :Boolean = file.createNewFile()
+
+if(isNewFileCreated){
+println("$fileName is created successfully.")
+} else{
+println("$fileName already exists.")
 }
+
+file.writeText("(set-logic QF_NIA)")*/
+
+    }
