@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1275e394-f427-45a1-aa8b-2db7311fc382" name="Changes" comment="">
+    <list default="true" id="1275e394-f427-45a1-aa8b-2db7311fc382" name="Changes" comment="Stack realisation and start of input parsing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/lab1.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/lab1.kt" afterDir="false" />
     </list>
@@ -23,6 +23,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="f2881107-68ed-4e39-ba0c-bc4b16b5f25e" />
+        <option name="url" value="https://github.com/IOANNVOLZHSKIY/TFL_IU9_BMSTU.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -38,7 +46,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/ivand/Desktop/УНИВЕР/Parallel and Distributed Programs/1_Lab&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ivand/Desktop/УНИВЕР/ТФЯ/1_Lab/lab1&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -70,8 +78,21 @@
       <workItem from="1695123807263" duration="2217000" />
       <workItem from="1695153836393" duration="2015000" />
       <workItem from="1695222122884" duration="1489000" />
-      <workItem from="1695283550976" duration="1740000" />
+      <workItem from="1695283550976" duration="13095000" />
+      <workItem from="1695371040487" duration="11230000" />
+      <workItem from="1695448414517" duration="32000" />
+      <workItem from="1695450146170" duration="3035000" />
+      <workItem from="1695493912116" duration="8404000" />
+      <workItem from="1695545003725" duration="4274000" />
     </task>
+    <task id="LOCAL-00001" summary="Stack realisation and start of input parsing">
+      <created>1695285846939</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1695285846939</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -88,7 +109,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/main" />
+                        <option value="main" />
                       </list>
                     </value>
                   </entry>
@@ -99,5 +120,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Stack realisation and start of input parsing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Stack realisation and start of input parsing" />
   </component>
 </project>
