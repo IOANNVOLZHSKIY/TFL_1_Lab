@@ -489,6 +489,8 @@ fun main() {
         out.write("))")
         out.write("\n")
 
+        out.write("(assert ")
+
         for (i in 0 until multipliers.size) {
             out.write("(or (and")
 
@@ -535,10 +537,10 @@ fun main() {
                 out.write(" (> (+ ${multipliers[i][0]["free"]}) (+ ${multipliers[i][1]["free"]}))")
             }
 
-            out.write(")\n")
+            out.write("))\n")
         }
 
-        out.write("(and")
+        out.write("(assert (and")
 
         for (i in 0 until inputLines.size) {
             for (t in 0 until 2) {
@@ -559,7 +561,7 @@ fun main() {
             }
         }
 
-        out.write(")\n")
+        out.write("))\n")
 
         out.write("(check-sat)\n")
         out.write("(get-model)\n")

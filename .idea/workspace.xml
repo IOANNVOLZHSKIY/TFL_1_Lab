@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1275e394-f427-45a1-aa8b-2db7311fc382" name="Changes" comment="WORLDWIDE RELEASE">
+    <list default="true" id="1275e394-f427-45a1-aa8b-2db7311fc382" name="Changes" comment="Removed restriction on exactly 2 rules, improved stability of calculation results, added possibility to use only 1 variable, improved code readability (from 1200 to 570 lines :)).">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/lab1.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/lab1.kt" afterDir="false" />
     </list>
@@ -46,7 +46,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/ivand/Desktop/УНИВЕР/ТФЯ/Test/untitled",
+    "last_opened_file_path": "C:/Users/ivand/Desktop/УНИВЕР/ТФЯ/1_Lab/lab1",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -85,7 +85,8 @@
       <workItem from="1695493912116" duration="8404000" />
       <workItem from="1695545003725" duration="41301000" />
       <workItem from="1696103389968" duration="2210000" />
-      <workItem from="1696153454845" duration="24042000" />
+      <workItem from="1696153454845" duration="24980000" />
+      <workItem from="1696412598419" duration="3589000" />
     </task>
     <task id="LOCAL-00001" summary="Stack realisation and start of input parsing">
       <created>1695285846939</created>
@@ -115,7 +116,14 @@
       <option name="project" value="LOCAL" />
       <updated>1695598496708</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Removed restriction on exactly 2 rules, improved stability of calculation results, added possibility to use only 1 variable, improved code readability (from 1200 to 570 lines :)).">
+      <created>1696193443640</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1696193443640</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -149,6 +157,7 @@
     <MESSAGE value="Added function os constructor's parser with expanding into linear expressions" />
     <MESSAGE value="Added splitting into variables by the presence of a variable, bringing a linear equation in the form for SMT2" />
     <MESSAGE value="WORLDWIDE RELEASE" />
-    <option name="LAST_COMMIT_MESSAGE" value="WORLDWIDE RELEASE" />
+    <MESSAGE value="Removed restriction on exactly 2 rules, improved stability of calculation results, added possibility to use only 1 variable, improved code readability (from 1200 to 570 lines :))." />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed restriction on exactly 2 rules, improved stability of calculation results, added possibility to use only 1 variable, improved code readability (from 1200 to 570 lines :))." />
   </component>
 </project>
